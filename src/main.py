@@ -1,5 +1,4 @@
 import src.PasswordManager
-import src.Encryption
 
 if __name__ == '__main__':
     password_manager = src.PasswordManager.PasswordManager()
