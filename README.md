@@ -15,3 +15,4 @@ This repository is part of the course Programming: The Next Step.
 ```bash
 git clone https://github.com/Programming-The-Next-Step-2022/PasswordManager.git
 cd PasswordGenerator
+```
