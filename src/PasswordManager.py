@@ -11,9 +11,9 @@ from src import Credential
 class PasswordManager:
 
     def __init__(self):
-        self.Dict = {}
-
-        # dict_file.close()
+        dict_file = open("data.pkl", "rb")
+        self.Dict = pickle.load(dict_file)
+        dict_file.close()
 
     def init_input(self):
         """
@@ -22,25 +22,35 @@ class PasswordManager:
         """
         website = input("Website: \n")
         username = input("Username: \n")
-        # dict_file = open("data.pkl", "wb")
+        self.add_credential(website, username)
+
+    def add_credential(self, website, username):
+        """
+        This function adds a randomly generated password to the corresponding
+        username and website
+
+        :param website: str containing the website url
+        :param username: str containing the username
+
+        :return: generated password to website and username
+        """
         self.Dict[website] = Credential(username)
-        # pickle.dump(self.Dict, dict_file)
-        # dict_file.close()
+
+        with open("data.pkl", "wb") as dict_file:
+            pickle.dump(self.Dict, dict_file)
+
+        dict_file.close()
+        print(self.Dict)
 
     def find_password(self, website):
         """
         This function returns the password generated for a specific website
 
-        :param Dict: dictionary containing the passwords
         :param website: str containing website user want to know the password of
 
         :return: found password
         """
-        # dict_file = open("data.pkl", "rb")
-        # loaded_dict = pickle.load(dict_file)
-        # found_password = loaded_dict[website]
-        # print(found_password)
-        # dict_file.close()
+
         return self.Dict[website]
 
 

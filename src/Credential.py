@@ -14,6 +14,7 @@ class Credential:
         self.username = username
         self.password = self.generate_password()
 
+
     def __repr__(self):
         return "\n'username' = " + self.username + "\n'password' = " + self.password + "\n"
 
