@@ -11,7 +11,6 @@ class Encryption(object):
         self.blocksize = AES.block_size
 
     def pad(self, s):
-        # block_size = 16
         return s + (self.blocksize - len(s) % self.blocksize) * chr(
             self.blocksize - len(s) % self.blocksize)
 

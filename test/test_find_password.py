@@ -18,7 +18,7 @@ class TestFindPassword(unittest.TestCase):
     def test_right_password(self):
         """
         Test whether found password is the same as generated password
-        
+
         :return: boolean indicating whether found password is same as generated
         password
         """

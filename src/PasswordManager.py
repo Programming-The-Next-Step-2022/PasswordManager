@@ -32,7 +32,7 @@ class PasswordManager:
         :param website: str containing the website url
         :param username: str containing the username
 
-        :return: generated password to website and username
+        :return: generated password to corresponding website and username
         """
         self.Dict[website] = Credential(username)
 
