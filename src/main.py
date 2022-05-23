@@ -1,2 +1,6 @@
+import src.PasswordManager
+
 if __name__ == '__main__':
-    print('Hello world')
+    password_manager = src.PasswordManager.PasswordManager()
+    password_manager.init_input()
+    print(password_manager.find_password('google'))
