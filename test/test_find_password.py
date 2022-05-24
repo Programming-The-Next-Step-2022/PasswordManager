@@ -25,7 +25,7 @@ class TestFindPassword(unittest.TestCase):
         password_manager = PasswordManager()
         password_manager.add_credential('testweb', 'testuser')
         self.assertEqual(password_manager.Dict['testweb'],
-                             password_manager.find_password('testweb'))
+                         password_manager.find_password('testweb'))
 
 
 if __name__ == '__main__':

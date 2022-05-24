@@ -10,12 +10,16 @@ class SetupKey:
         has been previously given will be used.
         """
         with open("key.txt", "rb") as key_file:
+            # print(key_file.read().decode( "utf-8" ))
             if os.stat("key.txt").st_size == 0:
                 print(os.stat("key.txt").st_size)
-                print("file is empty!")
                 self.key = self.init_key()
             else:
                 self.key = key_file.read()
+
+        print(self.key)
+        print(len(self.key))
+
 
     def init_key(self):
         """
@@ -29,7 +33,7 @@ class SetupKey:
         # Only save the key if the user has entered the same password the
         # second time
         if self.validate_key(key, key_repeat):
-            with open("key.txt", "w") as key_file:
+            with open("key.txt", "wb") as key_file:
                 key_file.write(key)
 
         return key
@@ -39,7 +43,7 @@ class SetupKey:
         Check if the user has given two times the same key
 
         :param key: str key
-        :param key_repeat: str key second time
+        :param key_repeat: str second key
         :return: boolean if the two given keys are the same
         """
         while True:
@@ -50,3 +54,5 @@ class SetupKey:
             else:
                 break
         return True
+
+
