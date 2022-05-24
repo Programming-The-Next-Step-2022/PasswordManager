@@ -2,12 +2,15 @@ import base64
 import hashlib
 from Crypto.Cipher import AES
 from Crypto import Random
+from src import SetupKey
 
 
 class Encryption(object):
 
-    def __init__(self, key):
-        self.key = hashlib.sha256(key.encode()).digest()
+    def __init__(self):
+        # Use the master key as key to encrypt the passwords
+        master_key = SetupKey.SetupKey().key
+        self.key = hashlib.sha256(master_key.encode()).digest()
         self.blocksize = AES.block_size
 
     def pad(self, string):
@@ -43,7 +46,7 @@ class Encryption(object):
         """
         Decrypt the AES-encrypted password using the key
         :param encoded_password: encoded and padded password
-        :return: decoded and unpadded password 
+        :return: decoded and unpadded password
         """
         encoded_password = base64.b64decode(encoded_password)
         iv = encoded_password[:AES.block_size]

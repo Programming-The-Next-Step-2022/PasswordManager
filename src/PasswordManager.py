@@ -1,10 +1,4 @@
 import pickle
-
-
-
-# dict_file = open("data.pkl", "wb")
-# pickle.dump(Dict, dict_file)
-# dict_file.close()
 from src import Credential
 
 
@@ -22,6 +16,7 @@ class PasswordManager:
         """
         website = input("Website: \n")
         username = input("Username: \n")
+        # filter = input("How long: \n")
         self.add_credential(website, username)
 
     def add_credential(self, website, username):
