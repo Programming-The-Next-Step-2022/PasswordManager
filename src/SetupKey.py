@@ -9,16 +9,21 @@ class SetupKey:
         give a master key. If this is not the first login, the master key that
         has been previously given will be used.
         """
-        with open("key.txt", "rb") as key_file:
-            # print(key_file.read().decode( "utf-8" ))
-            if os.stat("key.txt").st_size == 0:
-                print(os.stat("key.txt").st_size)
-                self.key = self.init_key()
-            else:
-                self.key = key_file.read()
+        try:
+            key_file = open("key.txt", "rb")
+            self.key = key_file.read()
+            key_file.close()
+            # self.Dict = pickle.load(open("data.pkl", "rb"))
+        except (OSError, IOError) as e:
+            self.key = self.init_key()
 
-        print(self.key)
-        print(len(self.key))
+
+        # with open("key.txt", "rb") as key_file:
+        #     # print(key_file.read().decode( "utf-8" ))
+        #     if os.stat("key.txt").st_size == 0:
+        #         self.key = self.init_key()
+        #     else:
+        #         self.key = key_file.read()
 
 
     def init_key(self):
@@ -33,7 +38,7 @@ class SetupKey:
         # Only save the key if the user has entered the same password the
         # second time
         if self.validate_key(key, key_repeat):
-            with open("key.txt", "wb") as key_file:
+            with open("key.txt", "w+") as key_file:
                 key_file.write(key)
 
         return key

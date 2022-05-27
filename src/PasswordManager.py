@@ -7,17 +7,22 @@ class PasswordManager:
 
     def __init__(self):
         """
-        todo: close file
+
         """
-        # try:
-        #     self.Dict = pickle.load(open("data.pkl", "rb"))
-        # except (OSError, IOError) as e:
-        #     test = dict()
-        #     pickle.dump(test, open("data.pkl", "wb"))
-        #     self.Dict = dict()
-        dict_file = open("data.pkl", "rb")
-        self.Dict = pickle.load(dict_file)
-        dict_file.close()
+        try:
+            dict_file = open("data.pkl", "rb")
+            self.Dict = pickle.load(dict_file)
+            dict_file.close()
+            # self.Dict = pickle.load(open("data.pkl", "rb"))
+        except (OSError, IOError) as e:
+            test = dict()
+            dict_file = open("data.pkl", "wb")
+            pickle.dump(test, dict_file)
+            self.Dict = dict()
+            dict_file.close()
+        # dict_file = open("data.pkl", "rb")
+        # self.Dict = pickle.load(dict_file)
+        # dict_file.close()
 
     def init_input(self):
         """
@@ -63,7 +68,6 @@ class PasswordManager:
             pickle.dump(self.Dict, dict_file)
 
         dict_file.close()
-        print(self.Dict)
 
     def find_password(self, website):
         """

@@ -48,14 +48,7 @@ class Credential:
             all_characters.extend(string.digits)
 
         password = ''.join(random.choices(all_characters, k=self.len_password))
-
-        print("123password")
-        print(password)
-
         enc = Encryption.Encryption()
         enc_password = enc.encrypt(password)
-
-        print("321password")
-        print(enc_password)
 
         return enc_password

@@ -35,7 +35,7 @@ class Encryption:
     def encrypt(self, password):
         """
         Encrypt the password according to AES by using the key
-        :rtype: object
+
         :param password: str containing the password
         :return: encrypted password
         """
@@ -53,11 +53,5 @@ class Encryption:
         encoded_password = base64.b64decode(encoded_password)
         iv = encoded_password[:AES.block_size]
         cipher = AES.new(self.key, AES.MODE_CBC, iv)
-
-        print("meuk123")
-        troep = self.unpad(cipher.decrypt(encoded_password[AES.block_size:]))
-        print(troep)
-        return troep.decode("utf-8")
-        # return self.unpad(cipher.decrypt(encoded_password[AES.block_size:])).decode('utf-8')
-
-
+        decoded_password = self.unpad(cipher.decrypt(encoded_password[AES.block_size:])).decode('utf-8')
+        return decoded_password
