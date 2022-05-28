@@ -1,5 +1,7 @@
 import os
 
+import bcrypt
+
 
 class SetupKey:
 
@@ -13,9 +15,11 @@ class SetupKey:
             key_file = open("key.txt", "rb")
             self.key = key_file.read()
             key_file.close()
-            # self.Dict = pickle.load(open("data.pkl", "rb"))
         except (OSError, IOError) as e:
+            key_file = open("key.txt", "w+")
             self.key = self.init_key()
+
+
 
 
         # with open("key.txt", "rb") as key_file:
@@ -38,10 +42,11 @@ class SetupKey:
         # Only save the key if the user has entered the same password the
         # second time
         if self.validate_key(key, key_repeat):
-            with open("key.txt", "w+") as key_file:
-                key_file.write(key)
+            hashed_key = self.get_hashed_password(key)
+            with open("key.txt", "wb") as key_file:
+                key_file.write(hashed_key)
 
-        return key
+        return self.get_hashed_password(key)
 
     def validate_key(self, key, key_repeat):
         """
@@ -59,5 +64,15 @@ class SetupKey:
             else:
                 break
         return True
+
+    def get_hashed_password(self, password):
+        """
+        Hash a password
+        :param password: str containing the password to be hashed
+
+        :return: hashed password
+        """
+
+        return bcrypt.hashpw(password.encode('utf8'), bcrypt.gensalt())
 
 
