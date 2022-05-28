@@ -58,10 +58,15 @@ class PasswordManager:
 
         :param website: str containing the website url
         :param username: str containing the username
+        :param len_password: int containing the desired length of the password
+        :param lower_case: boolean indicating if lowercase letters should be present
+        :param upper_case: boolean indicating if uppercase letters should be present
+        :param special_char: boolean indicating if special characters should be present
+        :param digits: boolean indicating if digits should be present
 
         :return: generated password to corresponding website and username
         """
-        self.Dict[website] = Credential(username, len_password, lower_case,
+        self.Dict[website] = Credential.Credential(username, len_password, lower_case,
                                         upper_case,special_char,digits)
 
         with open("data.pkl", "wb") as dict_file:
@@ -81,7 +86,21 @@ class PasswordManager:
 
         return enc.decrypt(self.Dict[website].password)
 
+    def show_username(self, website):
+        """
+        Show the username corresponding to the website
+        :param website: str containing the website name
+        :return: str containing the username
+        """
+        return self.Dict[website].username
+
     def check_boolean(self, response):
+        """
+        Check if string input is a True or False
+
+        :param response: bool in string, True or False
+        :return: boolean
+        """
         if response == "True":
             return True
         if response == "False":

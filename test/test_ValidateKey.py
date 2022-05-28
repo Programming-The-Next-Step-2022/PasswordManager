@@ -14,5 +14,6 @@ class TestValidateKey(unittest.TestCase):
         self.assertTrue(setupkey.validate_key('test', 'test'))
 
 
+
 if __name__ == '__main__':
     unittest.main()
