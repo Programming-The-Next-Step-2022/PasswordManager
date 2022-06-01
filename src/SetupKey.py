@@ -19,9 +19,6 @@ class SetupKey:
             key_file = open("key.txt", "w+")
             self.key = self.init_key()
 
-
-
-
         # with open("key.txt", "rb") as key_file:
         #     # print(key_file.read().decode( "utf-8" ))
         #     if os.stat("key.txt").st_size == 0:
@@ -67,10 +64,10 @@ class SetupKey:
 
     def get_hashed_password(self, password):
         """
-        Hash a password
-        :param password: str containing the password to be hashed
+        Hash master password
+        :param password: str containing the master password to be hashed
 
-        :return: hashed password
+        :return: hashed master password
         """
 
         return bcrypt.hashpw(password.encode('utf8'), bcrypt.gensalt())
