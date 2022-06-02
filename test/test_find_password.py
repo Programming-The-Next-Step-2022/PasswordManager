@@ -1,6 +1,7 @@
 import unittest
 
 from src.PasswordManager import PasswordManager
+from src import Encryption
 
 
 class TestFindPassword(unittest.TestCase):
@@ -12,7 +13,7 @@ class TestFindPassword(unittest.TestCase):
         :return: boolean indicating if password is generated
         """
         password_manager = PasswordManager()
-        password_manager.add_credential('testweb', 'testuser')
+        password_manager.add_credential('testweb', 'testuser', 15)
         self.assertIsNotNone(password_manager.find_password('testweb'))
 
     def test_right_password(self):
@@ -23,8 +24,9 @@ class TestFindPassword(unittest.TestCase):
         password
         """
         password_manager = PasswordManager()
-        password_manager.add_credential('testweb', 'testuser')
-        self.assertEqual(password_manager.Dict['testweb'],
+        enc = Encryption.Encryption()
+        password_manager.add_credential('testweb', 'testuser', 15)
+        self.assertEqual(enc.decrypt(password_manager.Dict['testweb'].password),
                          password_manager.find_password('testweb'))
 
 

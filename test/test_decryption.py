@@ -11,7 +11,7 @@ class TestEncryption(unittest.TestCase):
 
         :return: boolean indicating if decrypted password is same as original
         """
-        crypto = Encryption('testkey')
+        crypto = Encryption()
         enc = crypto.encrypt('test')
         self.assertEqual('test', crypto.decrypt(enc))
 
@@ -21,7 +21,7 @@ class TestEncryption(unittest.TestCase):
 
         :return: boolean indicating if password is decrypted
         """
-        crypto = Encryption('testkey')
+        crypto = Encryption()
         enc = crypto.encrypt('test')
         self.assertIsNotNone(crypto.decrypt(enc))
 
