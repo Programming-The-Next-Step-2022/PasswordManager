@@ -66,7 +66,7 @@ class PasswordManager:
 
         :return: generated password to corresponding website and username
         """
-        self.Dict[website] = Credential(username, len_password, lower_case,
+        self.Dict[website] = Credential.Credential(username, len_password, lower_case,
                                         upper_case,special_char,digits)
 
         with open("data.pkl", "wb") as dict_file:

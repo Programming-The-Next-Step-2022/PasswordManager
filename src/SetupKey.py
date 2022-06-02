@@ -5,7 +5,7 @@ import bcrypt
 
 class SetupKey:
 
-    def __init__(self):
+    def __init__(self, key='', key_repeat=''):
         """
         If the person uses the program for the first time, they are asked to
         give a master key. If this is not the first login, the master key that
@@ -17,24 +17,16 @@ class SetupKey:
             key_file.close()
         except (OSError, IOError) as e:
             key_file = open("key.txt", "w+")
-            self.key = self.init_key()
+            self.key = self.init_key(key, key_repeat)
 
-        # with open("key.txt", "rb") as key_file:
-        #     # print(key_file.read().decode( "utf-8" ))
-        #     if os.stat("key.txt").st_size == 0:
-        #         self.key = self.init_key()
-        #     else:
-        #         self.key = key_file.read()
-
-
-    def init_key(self):
+    def init_key(self, key, key_repeat):
         """
         Initialize a master key and save it in a textfile
 
         :return: str the master key
         """
-        key = input("Please choose a master password: ")
-        key_repeat = input("Please type your master password again: ")
+        # key = input("Please choose a master password: ")
+        # key_repeat = input("Please type your master password again: ")
 
         # Only save the key if the user has entered the same password the
         # second time

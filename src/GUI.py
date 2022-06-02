@@ -181,6 +181,8 @@ def login_button_clicked():
     :return: a new window on top of the root window
     """
     master_password = entry_masterpassword.get()
+
+
     login = Login.Login()
 
     if login.login(master_password):
@@ -199,11 +201,11 @@ def login_button_clicked():
 
 def init_master_password(master_password, repeat_password):
     try:
-        setup = SetupKey.SetupKey()
+        SetupKey.SetupKey(master_password, repeat_password)
     except:
         tm.showerror("Initialize master password", "Not the same password")
-    # else:
-    #     setupkey.init_key(master_password, repeat_password)
+    else:
+        tm.showinfo("Master password generated", "Master password is succesfully generated!")
 
 
 if __name__ == '__main__':
@@ -220,18 +222,21 @@ if __name__ == '__main__':
     # label_master.grid(row=1, column=0, sticky="w", padx=5, pady=5)
     #
     else:
-        pass
-        # first_mp_label = Label(text="Fill in your masterpassword: ")
-        # repeat_mp_label = Label(text="Fill in your masterpassword again: ")
-        #
-        # first_mp_entry = Entry(show="*")
-        # repeat_mp_entry = Entry(show="*")
-        #
-        # button_click = Button(text="Submit", command=init_master_password(first_mp_entry.get(), repeat_mp_entry.get()))
-        #
-        # first_mp_label.pack()
-        # first_mp_entry.pack()
-        # repeat_mp_label.pack()
-        # repeat_mp_entry.pack()
+        # pass
+        first_mp_label = Label(text="Fill in your masterpassword: ")
+        repeat_mp_label = Label(text="Fill in your masterpassword again: ")
+
+        first_mp_entry = Entry(show="*")
+        repeat_mp_entry = Entry(show="*")
+
+        button_click = Button(text="Submit", command=lambda: init_master_password(first_mp_entry.get(),
+                                                                                  repeat_mp_entry.get()))
+        # button_click = Button(text="Submit")
+
+        first_mp_label.pack()
+        first_mp_entry.pack()
+        repeat_mp_label.pack()
+        repeat_mp_entry.pack()
+        button_click.pack()
 
     window.mainloop()
