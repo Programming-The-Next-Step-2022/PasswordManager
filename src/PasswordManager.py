@@ -82,6 +82,12 @@ class PasswordManager:
         return enc.decrypt(self.Dict[website].password)
 
     def check_boolean(self, response):
+        """
+        Check if string input is a True or False
+
+        :param response: bool in string, True or False
+        :return: boolean
+        """
         if response == "True":
             return True
         if response == "False":
