@@ -2,7 +2,6 @@ import os
 
 import bcrypt
 
-
 class SetupKey:
 
     def __init__(self, key='', key_repeat=''):
@@ -24,9 +23,10 @@ class SetupKey:
 
         :return: str the master key
         """
+
+
         # Only save the key if the user has entered the same password the
         # second time
-
         if key != key_repeat:
             raise SyntaxError
         else:
@@ -35,14 +35,14 @@ class SetupKey:
                 key_file.write(hashed_key)
             return hashed_key
 
+
     def get_hashed_password(self, password):
         """
-        Hash master password
-        :param password: str containing the master password to be hashed
+        Hash a password
+        :param password: str containing the password to be hashed
 
-        :return: hashed master password
+        :return: hashed password
         """
-
         return bcrypt.hashpw(password.encode('utf8'), bcrypt.gensalt())
 
 

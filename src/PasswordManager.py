@@ -6,9 +6,6 @@ import os
 class PasswordManager:
 
     def __init__(self):
-        """
-
-        """
         try:
             dict_file = open("data.pkl", "rb")
             self.Dict = pickle.load(dict_file)
@@ -36,8 +33,9 @@ class PasswordManager:
 
         :return: generated password to corresponding website and username
         """
+
         self.Dict[website] = Credential.Credential(username, len_password, lower_case,
-                                        upper_case,special_char,digits)
+                                        upper_case, special_char,digits)
 
         with open("data.pkl", "wb") as dict_file:
             pickle.dump(self.Dict, dict_file)
@@ -55,6 +53,15 @@ class PasswordManager:
         enc = Encryption.Encryption()
 
         return enc.decrypt(self.Dict[website].password)
+
+    def show_username(self, website):
+        """
+        Show the username corresponding to the website
+        :param website: str containing the website name
+        :return: str containing the username
+        """
+        return self.Dict[website].username
+
 
     def show_username(self, website):
         """

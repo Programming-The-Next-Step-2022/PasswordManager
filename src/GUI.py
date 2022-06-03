@@ -33,6 +33,7 @@ def find_password(website, textbox_password, textbox_username):
         textbox_username.insert(END, found_username)
 
 
+
 def find_password_screen(window):
     """
     Initializes the 'find password' screen. The user can give the website name
@@ -113,6 +114,7 @@ def generate_password(textbox, website, username, length_password,
         tm.showerror("Generate password error", "Check at least one of the boxes!")
 
 
+
 def generate_password_screen(window):
     """
     Generate a screen to ask the user input to generate password
@@ -158,6 +160,7 @@ def generate_password_screen(window):
     cb_specialchar = Checkbutton(generate_password_scrn,
                                  text="Special Characters", variable=boolvar_sc)
 
+
     # Show the password in the textbox when the button is clicked
     button_click = Button(generate_password_scrn, text="Generate",
                           command=lambda: generate_password(output,
@@ -194,9 +197,6 @@ def login_button_clicked(entry_box, window):
     login = Login.Login()
 
     if login.login(master_password):
-
-        # Withdraw the root window and create a new window
-        # window.withdraw()
         new_window = Toplevel(window)
         new_window.geometry("700x250")
         new_window.title("Password Manager")
@@ -227,14 +227,15 @@ def init_master_password(master_password, repeat_password):
         tm.showinfo("Master password generated",
                     "Master password is succesfully created!")
 
-def main():
-    # If this is not the first time the user logs in, a login screen will popup
-    # else, a screen will popup so the user can create a masterpassword.
 
+def main():
     # Create root window
     window = Tk()
     window.title("Password Manager")
     window.geometry("700x250")
+
+    # If this is not the first time the user logs in, a login screen will popup
+    # else, a screen will popup so the user can create a masterpassword.
 
     if exists("key.txt"):
         Label(text="Fill in your master password ").pack(pady=10)
@@ -245,7 +246,6 @@ def main():
     else:
         first_mp_label = Label(text="Fill in your master password: ")
         repeat_mp_label = Label(text="Fill in your master password again: ")
-
         first_mp_entry = Entry(show="*")
         repeat_mp_entry = Entry(show="*")
 
@@ -258,6 +258,7 @@ def main():
         repeat_mp_label.pack(pady=5)
         repeat_mp_entry.pack(pady=5)
         button_click.pack(pady=10)
+
 
     window.mainloop()
 
