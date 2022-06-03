@@ -10,10 +10,13 @@
 [![Python 3+7 ready](https://img.shields.io/badge/python-3.8%2B-yellowgreen.svg)](https://www.python.org/)
 [![Licence](https://img.shields.io/badge/license-MIT-orange.svg)](LICENSE)
 
-This is a password manager which generates and saves your passwords, so you don't have to remember them anymore!
+This is a password manager which generates and saves your passwords so you don't have to remember them anymore!
 
 ## About
-This repository is part of the course Programming: The Next Step.
+This package is part of the course Programming: The Next Step of the University of Amsterdam for the Research Master Psychology.
+The package uses AES encryption to encrypt and decrypt all the generated password. 
+
+
 
 ## Running the package
 ```bash

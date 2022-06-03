@@ -24,9 +24,6 @@ class SetupKey:
 
         :return: str the master key
         """
-        # key = input("Please choose a master password: ")
-        # key_repeat = input("Please type your master password again: ")
-
         # Only save the key if the user has entered the same password the
         # second time
 
@@ -37,25 +34,6 @@ class SetupKey:
             with open("key.txt", "wb") as key_file:
                 key_file.write(hashed_key)
             return hashed_key
-
-    def validate_key(self, key, key_repeat):
-        """
-        Check if the user has given two times the same key
-
-        :param key: str key
-        :param key_repeat: str second key
-        :return: boolean if the two given keys are the same
-        """
-
-        return key == key_repeat
-        # while True:
-        #     if key != key_repeat:
-        #         key_repeat = input(
-        #             "The master password is not the same, please try"
-        #             " again! ")
-        #     else:
-        #         break
-        # return True
 
     def get_hashed_password(self, password):
         """

@@ -4,12 +4,6 @@ from tkinter.ttk import *
 from os.path import exists
 
 from src import Login, PasswordManager, SetupKey
-from src import *
-
-# Create root window
-window = Tk()
-window.title("Password Manager")
-window.geometry("700x250")
 
 
 def find_password(website, textbox_password, textbox_username):
@@ -39,7 +33,7 @@ def find_password(website, textbox_password, textbox_username):
         textbox_username.insert(END, found_username)
 
 
-def find_password_screen():
+def find_password_screen(window):
     """
     Initializes the 'find password' screen. The user can give the website name
     and the password will be returned in the textbox, if it exists.
@@ -68,7 +62,7 @@ def find_password_screen():
     password_label = Label(find_password_scrn, text="Password: ")
     output_username = Text(find_password_scrn, width=40, height=1)
 
-    website_label.pack()
+    website_label.pack(pady=10)
     website_entry.pack(pady=10)
     button_click.pack()
     label.pack()
@@ -119,7 +113,7 @@ def generate_password(textbox, website, username, length_password,
         tm.showerror("Generate password error", "Check at least one of the boxes!")
 
 
-def generate_password_screen():
+def generate_password_screen(window):
     """
     Generate a screen to ask the user input to generate password
     :return: screen containing input questions
@@ -164,6 +158,7 @@ def generate_password_screen():
     cb_specialchar = Checkbutton(generate_password_scrn,
                                  text="Special Characters", variable=boolvar_sc)
 
+    # Show the password in the textbox when the button is clicked
     button_click = Button(generate_password_scrn, text="Generate",
                           command=lambda: generate_password(output,
                                                             website_entry.get(),
@@ -189,13 +184,13 @@ def generate_password_screen():
     output.pack(pady=10)
 
 
-def login_button_clicked():
+def login_button_clicked(entry_box, window):
     """
     Create a new window when the login button has been clicked.
     User can choose to find a password or generate a password.
     :return: a new window on top of the root window
     """
-    master_password = entry_masterpassword.get()
+    master_password = entry_box.get()
     login = Login.Login()
 
     if login.login(master_password):
@@ -209,9 +204,9 @@ def login_button_clicked():
 
         Label(new_window, text="Choose option:").pack(pady=10)
         Button(new_window, text="Find Password",
-               command=find_password_screen).pack(pady=15)
+               command=lambda: find_password_screen(new_window)).pack(pady=15)
         Button(new_window, text="Generate Password",
-               command=generate_password_screen).pack(pady=15)
+               command=lambda: generate_password_screen(new_window)).pack(pady=15)
     else:
         tm.showerror("Login error", "Incorrect Master password")
 
@@ -232,21 +227,24 @@ def init_master_password(master_password, repeat_password):
         tm.showinfo("Master password generated",
                     "Master password is succesfully created!")
 
-
-if __name__ == '__main__':
-
+def main():
     # If this is not the first time the user logs in, a login screen will popup
     # else, a screen will popup so the user can create a masterpassword.
+
+    # Create root window
+    window = Tk()
+    window.title("Password Manager")
+    window.geometry("700x250")
+
     if exists("key.txt"):
         Label(text="Fill in your master password ").pack(pady=10)
         Label(text="Master password: ").pack(pady=10)
         entry_masterpassword = Entry(show="*")
-        master_password = entry_masterpassword.get()
         entry_masterpassword.pack(pady=5)
-        Button(text="Login", command=login_button_clicked).pack()
+        Button(text="Login", command=lambda: login_button_clicked(entry_masterpassword, window)).pack()
     else:
-        first_mp_label = Label(text="Fill in your masterpassword: ")
-        repeat_mp_label = Label(text="Fill in your masterpassword again: ")
+        first_mp_label = Label(text="Fill in your master password: ")
+        repeat_mp_label = Label(text="Fill in your master password again: ")
 
         first_mp_entry = Entry(show="*")
         repeat_mp_entry = Entry(show="*")
@@ -262,3 +260,7 @@ if __name__ == '__main__':
         button_click.pack(pady=10)
 
     window.mainloop()
+
+
+if __name__ == '__main__':
+    main()

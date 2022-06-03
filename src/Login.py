@@ -14,7 +14,6 @@ class Login:
         :return: boolean indicating if the login password is the same as the
         master password.
         """
-        #master_password = input("Please enter your master password: \n")
 
         return self.check_password(master_password)
 
