@@ -16,7 +16,6 @@ class SetupKey:
             self.key = key_file.read()
             key_file.close()
         except (OSError, IOError) as e:
-            key_file = open("key.txt", "w+")
             self.key = self.init_key(key, key_repeat)
 
     def init_key(self, key, key_repeat):
@@ -30,12 +29,14 @@ class SetupKey:
 
         # Only save the key if the user has entered the same password the
         # second time
-        if self.validate_key(key, key_repeat):
+
+        if key != key_repeat:
+            raise SyntaxError
+        else:
             hashed_key = self.get_hashed_password(key)
             with open("key.txt", "wb") as key_file:
                 key_file.write(hashed_key)
-
-        return self.get_hashed_password(key)
+            return hashed_key
 
     def validate_key(self, key, key_repeat):
         """
@@ -46,15 +47,15 @@ class SetupKey:
         :return: boolean if the two given keys are the same
         """
 
-        return key == key_repeat
-        # while True:
-        #     if key != key_repeat:
-        #         key_repeat = input(
-        #             "The master password is not the same, please try"
-        #             " again! ")
-        #     else:
-        #         break
-        # return True
+        # return key == key_repeat
+        while True:
+            if key != key_repeat:
+                key_repeat = input(
+                    "The master password is not the same, please try"
+                    " again! ")
+            else:
+                break
+        return True
 
     def get_hashed_password(self, password):
         """

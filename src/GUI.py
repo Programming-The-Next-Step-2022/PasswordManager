@@ -58,7 +58,8 @@ def find_password_screen():
     label = Label(find_password_scrn, text="")
     button_click = Button(find_password_scrn, text="Search",
                           command=lambda: label.config(
-                              text=find_password(website_entry.get(), output, output_username)))
+                              text=find_password(website_entry.get(), output,
+                                                 output_username)))
 
     # Create textbox in which the password will be shown
     username_label = Label(find_password_scrn, text="Username: ")
@@ -90,19 +91,31 @@ def generate_password(textbox, website, username, length_password,
     :param upper_case: boolean whether upper case letters should be present
     :param digits: boolean whether digits should be present
     :param special_char: boolean whether special characters should be present
-    :return: a generated password based on the user's whishes in a textbox
+    :return: a generated password based on the user's wishes in a textbox
     """
     try:
         # Clear the textbox
         textbox.delete('1.0', END)
+        if not length_password.isdigit():
+            raise KeyError("Not an integer")
+        if not website or not username or not length_password:
+            raise ValueError("empty string")
+        if not digits and not upper_case and not lower_case and not special_char:
+            raise AssertionError("No input arguments given")
         password_manager = PasswordManager.PasswordManager()
         password_manager.add_credential(website, username, int(length_password),
                                         lower_case, upper_case, digits,
                                         special_char)
         found_password = password_manager.find_password(website)
         textbox.insert(END, found_password)
-    except ValueError as error:
-        tm.showerror("Find password error", "Could not find password")
+    except ValueError:
+        tm.showerror("Not all fields are filled in",
+                     "Not all the fields are filled in,"
+                     " please fill all the fields in!")
+    except KeyError:
+        tm.showerror("Not a number given", "Please fill a number in for desired length!")
+    except AssertionError as e:
+        tm.showerror("Generate password error", "Check at least one of the boxes!")
 
 
 def generate_password_screen():
@@ -181,11 +194,12 @@ def login_button_clicked():
     :return: a new window on top of the root window
     """
     master_password = entry_masterpassword.get()
-
-
     login = Login.Login()
 
     if login.login(master_password):
+
+        # Withdraw the root window and create a new window
+        window.withdraw()
         new_window = Toplevel(window)
         new_window.geometry("700x250")
         new_window.title("Password Manager")
@@ -200,16 +214,26 @@ def login_button_clicked():
 
 
 def init_master_password(master_password, repeat_password):
+    """
+    Initialize the user's master password
+    :param master_password: str master password
+    :param repeat_password: str master password repeated
+    :return: message telling the user whether the masterpassword is succesfully
+    initiliazed
+    """
     try:
         SetupKey.SetupKey(master_password, repeat_password)
-    except:
+    except SyntaxError:
         tm.showerror("Initialize master password", "Not the same password")
     else:
-        tm.showinfo("Master password generated", "Master password is succesfully generated!")
+        tm.showinfo("Master password generated",
+                    "Master password is succesfully created!")
 
 
 if __name__ == '__main__':
 
+    # If this is not the first time the user logs in, a login screen will popup
+    # else, a screen will popup so the user can create a masterpassword.
     if exists("key.txt"):
         Label(text="Fill in your master password ").pack(pady=10)
         Label(text="Master password: ").pack(pady=10)
@@ -217,26 +241,21 @@ if __name__ == '__main__':
         master_password = entry_masterpassword.get()
         entry_masterpassword.pack(pady=5)
         Button(text="Login", command=login_button_clicked).pack()
-    # print(login.login(master_password))
-    # label_title.grid(row=0, column=0, sticky="w", padx=5, pady=5)
-    # label_master.grid(row=1, column=0, sticky="w", padx=5, pady=5)
-    #
     else:
-        # pass
         first_mp_label = Label(text="Fill in your masterpassword: ")
         repeat_mp_label = Label(text="Fill in your masterpassword again: ")
 
         first_mp_entry = Entry(show="*")
         repeat_mp_entry = Entry(show="*")
 
-        button_click = Button(text="Submit", command=lambda: init_master_password(first_mp_entry.get(),
-                                                                                  repeat_mp_entry.get()))
-        # button_click = Button(text="Submit")
-
-        first_mp_label.pack()
-        first_mp_entry.pack()
-        repeat_mp_label.pack()
-        repeat_mp_entry.pack()
-        button_click.pack()
+        button_click = Button(text="Submit",
+                              command=lambda: init_master_password(
+                                  first_mp_entry.get(),
+                                  repeat_mp_entry.get()))
+        first_mp_label.pack(pady=5)
+        first_mp_entry.pack(pady=5)
+        repeat_mp_label.pack(pady=5)
+        repeat_mp_entry.pack(pady=5)
+        button_click.pack(pady=10)
 
     window.mainloop()
