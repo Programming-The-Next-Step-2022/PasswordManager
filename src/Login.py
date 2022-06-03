@@ -7,14 +7,14 @@ class Login:
     def __init__(self):
         self.key = SetupKey.SetupKey().key
 
-    def login(self):
+    def login(self, master_password):
         """
         Check whether the login password is the same as the master password
 
         :return: boolean indicating if the login password is the same as the
         master password.
         """
-        master_password = input("Please enter your master password: \n")
+        #master_password = input("Please enter your master password: \n")
 
         return self.check_password(master_password)
 
