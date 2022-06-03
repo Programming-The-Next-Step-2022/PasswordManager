@@ -49,6 +49,7 @@ def find_password_screen():
     find_password_scrn = Toplevel(window)
     find_password_scrn.geometry("900x300")
     find_password_scrn.title("Find Password")
+    find_password_scrn.grab_set()
 
     website_label = Label(find_password_scrn, text="Website")
     website_entry = Entry(find_password_scrn)
@@ -126,6 +127,7 @@ def generate_password_screen():
     generate_password_scrn = Toplevel(window)
     generate_password_scrn.geometry("900x300")
     generate_password_scrn.title("Generate Password")
+    generate_password_scrn.grab_set()
 
     website_label = Label(generate_password_scrn, text="Website")
     website_entry = Entry(generate_password_scrn)
@@ -199,10 +201,11 @@ def login_button_clicked():
     if login.login(master_password):
 
         # Withdraw the root window and create a new window
-        window.withdraw()
+        # window.withdraw()
         new_window = Toplevel(window)
         new_window.geometry("700x250")
         new_window.title("Password Manager")
+        new_window.grab_set()
 
         Label(new_window, text="Choose option:").pack(pady=10)
         Button(new_window, text="Find Password",

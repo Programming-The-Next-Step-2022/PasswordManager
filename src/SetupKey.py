@@ -47,15 +47,15 @@ class SetupKey:
         :return: boolean if the two given keys are the same
         """
 
-        # return key == key_repeat
-        while True:
-            if key != key_repeat:
-                key_repeat = input(
-                    "The master password is not the same, please try"
-                    " again! ")
-            else:
-                break
-        return True
+        return key == key_repeat
+        # while True:
+        #     if key != key_repeat:
+        #         key_repeat = input(
+        #             "The master password is not the same, please try"
+        #             " again! ")
+        #     else:
+        #         break
+        # return True
 
     def get_hashed_password(self, password):
         """
