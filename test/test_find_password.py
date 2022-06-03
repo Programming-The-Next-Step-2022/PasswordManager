@@ -28,8 +28,7 @@ class TestFindPassword(unittest.TestCase):
         enc = Encryption.Encryption()
         password_manager.add_credential('testweb', 'testuser', 15, lower_case=True,
                                         upper_case=True, digits=True, special_char=True)
-        self.assertEqual(enc.decrypt(password_manager.Dict['testweb'].password),
-                         password_manager.find_password('testweb'))
+        self.assertEqual(enc.decrypt(password_manager.Dict['testweb'].password), password_manager.find_password('testweb'))
 
 
 if __name__ == '__main__':

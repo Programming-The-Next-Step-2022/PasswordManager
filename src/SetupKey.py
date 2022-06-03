@@ -59,12 +59,11 @@ class SetupKey:
 
     def get_hashed_password(self, password):
         """
-        Hash master password
-        :param password: str containing the master password to be hashed
+        Hash a password
+        :param password: str containing the password to be hashed
 
-        :return: hashed master password
+        :return: hashed password
         """
-
         return bcrypt.hashpw(password.encode('utf8'), bcrypt.gensalt())
 
 
