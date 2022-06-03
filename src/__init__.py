@@ -1,1 +1,1 @@
-from src.Credential import *
+from src import *

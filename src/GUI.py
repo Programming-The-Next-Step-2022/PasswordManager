@@ -3,7 +3,7 @@ from tkinter import *
 from tkinter.ttk import *
 from os.path import exists
 
-# from src import Login, Credential, Encryption, PasswordManager, SetupKey
+from src import Login, PasswordManager, SetupKey
 from src import *
 
 # Create root window
